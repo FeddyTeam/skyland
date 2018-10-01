@@ -12,7 +12,7 @@ import './static/index.css'
 
 ReactDOM.render(
     (<Provider {...stores}>
-        <BrowserRouter>
+        <BrowserRouter basename="/skyland">
             <App />
         </BrowserRouter>
     </Provider>), 
