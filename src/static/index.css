@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+
+html, body, .app {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.has-error .ant-form-extra {
+    color: #f5222d;
+}
