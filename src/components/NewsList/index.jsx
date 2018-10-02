@@ -17,10 +17,8 @@ const levelTag = level => {
 const statusTag = status => {
     const statusColors = {
         draft: 'green',
-        pending: 'cyan',
-        // active: 'blue',
-        // expired: '#ddd',
-        deleted: '#ddd'
+        active: 'blue',
+        deleted: '#ddd',
     }
 
     return <Tag color={statusColors[status]}>{status}</Tag>

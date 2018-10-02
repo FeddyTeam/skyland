@@ -10,8 +10,6 @@ const FormItem = Form.Item
 const Option = Select.Option
 const { TextArea } = Input
 
-window.nf = newsForm
-
 @inject('newsStore')
 @observer
 class NewsEditor extends Component {

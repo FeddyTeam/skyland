@@ -1,6 +1,6 @@
 import { observable, action, computed, autorun } from 'mobx'
 import profileStore from './profileStore'
-import { auth } from '../graphql'
+import agent from '../graphql'
 
 import { get } from 'lodash'
 
@@ -42,7 +42,7 @@ class AuthStore {
     @action async login (values) {
         this.startProgress()
         try {
-            const { data: { token } } = await auth.login(values)
+            const { data: { token } } = await agent.auth.login(values)
 
             this.setToken(token)
         } catch (err) {
@@ -54,7 +54,7 @@ class AuthStore {
 
     @action async mkQiniuToken () {
         try {
-            const { data: { qiniuToken } } = await auth.qiniuToken()
+            const { data: { qiniuToken } } = await agent.auth.qiniuToken()
 
             return qiniuToken
         } catch (err) {
@@ -81,7 +81,11 @@ class AuthStore {
 const authStore = new AuthStore()
 
 autorun(() => {
-    if (authStore.isAuthed) {
+    const { isAuthed, token } = authStore
+
+    agent.config.setToken(token)
+
+    if (isAuthed) {
         profileStore.getProfile()
     }
 })

@@ -54,4 +54,10 @@ export default {
     profile,
     news,
     user,
+
+    config: {
+        setToken(token) {
+            agent.defaults.headers['Authentication'] = `Bearer ${token}`
+        }
+    }
 }

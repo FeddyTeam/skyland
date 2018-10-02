@@ -5,8 +5,8 @@ export default function(callback) {
     w.onbeforeunload = () => {
         const search = w.document.location.search
         const params = new Map()
-        search.split('&').forEach(one => {
-            const [key, value] = one
+        search.substr(1).split('&').forEach(one => {
+            const [key, value] = one.split('=')
             params.set(key, value)
         })
 
