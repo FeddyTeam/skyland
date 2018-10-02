@@ -73,7 +73,7 @@ class NewsList extends Component {
                 title: 'By',
                 dataIndex: 'user',
                 key: 'user',
-                render: user => <span>{user.name}</span>
+                render: user => <span>{user.name} @{user.username}</span>
             }, {
                 title: 'Action',
                 dataIndex: '_id',

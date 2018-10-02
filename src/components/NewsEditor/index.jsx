@@ -27,6 +27,8 @@ class NewsEditor extends Component {
     }
 
     async componentDidMount() {
+        newsForm.clear()
+
         const { id } = this.props.match.params
         const news = await this.props.newsStore.getNews(id)
 
@@ -77,7 +79,7 @@ class NewsEditor extends Component {
                     <Row gutter={10}>
                         <Col span={8}>
                             <FormItem {...bindField(newsForm.$('screen'))}>
-                                <PhotoUploader imageView='?imageView2/0/w/1600/h/800/q/5' {...newsForm.$('screen').bind()}/>
+                                <PhotoUploader imageView='?imageView2/0/w/1600/h/800/q/75' {...newsForm.$('screen').bind()}/>
                                 <Input style={{ maxWidth: '640px' }} {...newsForm.$('screen').bind()} autoComplete='off'/>
                                 <div>
                                     <Button icon="link" target="_blank" href="https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2">七牛图片基本处理</Button>
