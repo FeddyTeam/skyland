@@ -6,8 +6,9 @@ import { AppHeader, AppContent, AppFooter } from '..'
 
 @inject('authStore')
 class App extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.authStore.loadToken()
+        this.props.authStore.renew()
     }
 
     render() {

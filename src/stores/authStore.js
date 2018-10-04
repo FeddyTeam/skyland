@@ -18,7 +18,7 @@ class AuthStore {
 
     @action.bound loadToken() {
         const token = localStorage.getItem('token')
-        if (/^\w+\.\w+\.\w+$/.test(token)) {
+        if (/^[\w_-]+\.[\w_-]+\.[\w_-]+$/.test(token)) {
             this.setToken(token)
         }
     }
@@ -43,6 +43,23 @@ class AuthStore {
         this.startProgress()
         try {
             const { data: { token } } = await agent.auth.login(values)
+
+            this.setToken(token)
+        } catch (err) {
+            throw err.message
+        } finally {
+            this.stopProgress()
+        }
+    }
+
+    @action async renew () {
+        if (!this.token) {
+            return
+        }
+
+        this.startProgress()
+        try {
+            const { data: { token } } = await agent.auth.renew()
 
             this.setToken(token)
         } catch (err) {
