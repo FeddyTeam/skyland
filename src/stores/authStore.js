@@ -18,7 +18,7 @@ class AuthStore {
 
     @action.bound loadToken() {
         const token = localStorage.getItem('token')
-        if (/^[\w_-]+\.[\w_-]+\.[\w_-]+$/.test(token)) {
+        if (/^[\w-]+\.[\w-]+\.[\w-]+$/.test(token)) {
             this.setToken(token)
         }
     }
@@ -28,7 +28,9 @@ class AuthStore {
         localStorage.setItem('token', token)
 
         try {
-            const payload = JSON.parse(atob(token.match(/\.(\w+)\./)[1]))
+            const base64URL = token.match(/\.([\w-]+)\./)[1]
+            const base64 = base64URL.replace(/-/g, '+').replace(/_/g, '/')
+            const payload = JSON.parse(atob(base64))
             if (payload.exp * 1000 > new Date().getTime()) {
                 this.info = payload
             } else {
