@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { print } from 'graphql/language/printer'
 
-import { LOGIN, QINIU_TOKEN } from './auth'
+import { LOGIN, RENEW, QINIU_TOKEN } from './auth'
 import { GET_NEWS, CREATE_NEWS, UPDATE_NEWS, LIST_NEWS } from './news'
 import { GET_PROFILE, UPDATE_PROFILE } from './profile'
 import { LIST_USER, UPDATE_USER } from './user'
@@ -18,7 +18,7 @@ const agent = axios.create({
 
 const query = async (query, variables) => {
     const response = await agent.request({ data: { query: print(query), variables } })
-    const { errors } = response.data     
+    const { errors } = response.data
     if (errors) {
         const messages = errors.map(one => one.message)
         throw new Error(messages.join(', '))
@@ -28,6 +28,7 @@ const query = async (query, variables) => {
 }
 
 export const auth = {
+    renew: async () => query(RENEW),
     login: async form => query(LOGIN, { form }),
     qiniuToken: async () => query(QINIU_TOKEN),
 }
